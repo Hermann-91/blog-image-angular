@@ -1,0 +1,50 @@
+<div class="app-container">
+  <header class="app-header">
+    <h1 class="app-title">📸 Blog de Imagens</h1>
+  </header>
+
+  <main class="app-main">
+    <!-- Menu e Search -->
+    <div class="sidebar-section">
+      <app-menu
+        [categories]="categories"
+        [isExpanded]="menuExpanded"
+        (toggleMenu)="toggleMenu()"
+        (categorySelected)="onCategorySelected($event)"
+        (showAllImages)="onShowAllImages()"
+      ></app-menu>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <div class="content-section">
+      <!-- Post Image Button -->
+      <app-post-image (imagePosted)="onImagePosted($event)"></app-post-image>
+
+      <!-- Search Bar -->
+      <app-search-bar (searchSubmitted)="onSearch($event)"></app-search-bar>
+
+      <!-- Images Grid -->
+      <div class="images-grid">
+        @if (filteredImages.length === 0) {
+          <div class="no-images">
+            <p class="no-images-icon">🖼️</p>
+            <p class="no-images-text">Nenhuma imagem encontrada</p>
+            <p class="no-images-hint">Tente pesquisar por outro termo ou categoria</p>
+          </div>
+        } @else {
+          @for (image of filteredImages; track image.id) {
+            <app-image-card
+              [image]="image"
+              (likeClicked)="onLike($event)"
+              (commentAdded)="onCommentAdded($event)"
+            ></app-image-card>
+          }
+        }
+      </div>
+    </div>
+  </main>
+
+  <footer class="app-footer">
+    <p>&copy; 2024 Blog de Imagens. Todos os direitos reservados.</p>
+  </footer>
+</div>

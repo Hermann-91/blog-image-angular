@@ -1,0 +1,51 @@
+<div class="card">
+  <div class="card-image">
+    <img [src]="image.imageUrl" [alt]="image.title" loading="lazy" />
+    <div class="card-overlay">
+      <span class="category-badge">{{ image.category }}</span>
+    </div>
+  </div>
+
+  <div class="card-content">
+    <h3 class="card-title">O que achou da imagem?</h3>
+
+    <div class="card-actions">
+      <button class="btn-like" (click)="onLike()">
+        <span class="icon">👍</span>
+        <span class="count">{{ image.likes }}</span>
+      </button>
+      <button class="btn-comments" (click)="toggleComments()">
+        <span class="icon">💬</span>
+        <span class="count">{{ image.comments.length }}</span>
+      </button>
+    </div>
+
+    <div class="comments-section" [class.expanded]="showComments">
+      <div class="comments-list">
+        @if (image.comments.length === 0) {
+          <p class="no-comments">Seja o primeiro a comentar!</p>
+        }
+        @for (comment of image.comments; track comment.id) {
+          <div class="comment-item">
+            <strong>{{ comment.author }}</strong>
+            <p>{{ comment.text }}</p>
+            <small>{{ comment.postedAt | date: 'short' }}</small>
+          </div>
+        }
+      </div>
+
+      <div class="comment-form">
+        <input
+          type="text"
+          [(ngModel)]="newComment"
+          placeholder="Deixe seu comentário..."
+          class="comment-input"
+          (keyup.enter)="addComment()"
+        />
+        <button (click)="addComment()" class="btn-submit" [disabled]="!newComment.trim()">
+          Postar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

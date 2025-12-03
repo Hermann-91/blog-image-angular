@@ -1,0 +1,70 @@
+<button class="btn-post-image" (click)="openModal()">
+  📸 Poste sua imagem favorita
+</button>
+
+@if (showModal) {
+  <div class="modal-backdrop" (click)="onBackdropClick($event)">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>Compartilhe sua imagem</h2>
+        <button class="close-btn" (click)="closeModal()">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="title">Título da imagem</label>
+          <input
+            id="title"
+            type="text"
+            [(ngModel)]="formData.title"
+            placeholder="Ex: Pôr do sol na praia"
+            class="form-input"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="imageUrl">URL da imagem</label>
+          <input
+            id="imageUrl"
+            type="text"
+            [(ngModel)]="formData.imageUrl"
+            placeholder="Ex: https://example.com/image.jpg"
+            class="form-input"
+          />
+        </div>
+
+        @if (formData.imageUrl.trim()) {
+          <div class="form-group">
+            <label>Prévia da imagem</label>
+            <img
+              [src]="formData.imageUrl"
+              [alt]="formData.title"
+              class="image-preview"
+              (error)="formData.imageUrl = ''"
+            />
+          </div>
+        }
+
+        <div class="form-group">
+          <label for="category">Categoria</label>
+          <select [(ngModel)]="formData.category" id="category" class="form-select">
+            @for (cat of categories; track cat) {
+              <option [value]="cat">{{ cat }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button (click)="closeModal()" class="btn-cancel">Cancelar</button>
+        <button
+          (click)="submitForm()"
+          class="btn-submit"
+          [disabled]="!formData.title.trim() || !formData.imageUrl.trim()"
+        >
+          Postar
+        </button>
+      </div>
+    </div>
+  </div>
+}

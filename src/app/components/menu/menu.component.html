@@ -1,0 +1,27 @@
+<div class="menu-container">
+  <div class="menu-header">
+    <button class="menu-toggle" (click)="handleToggleMenu()" [class.expanded]="isExpanded">
+      <span class="circle"></span>
+      <span class="text">{{ isExpanded ? 'Minimizar' : 'MENU' }}</span>
+    </button>
+  </div>
+
+  <nav class="menu-content" [class.expanded]="isExpanded">
+    <button class="menu-item" (click)="handleShowAll()">
+      <span>Todas as Imagens</span>
+    </button>
+
+    <div class="menu-divider"></div>
+
+    <div class="menu-category-title">Categorias</div>
+    <ul class="categories-list">
+      @for (category of categories; track category.id) {
+        <li>
+          <button class="category-item" (click)="selectCategory(category.name)">
+            {{ category.name }}
+          </button>
+        </li>
+      }
+    </ul>
+  </nav>
+</div>
