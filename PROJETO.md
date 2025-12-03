@@ -224,14 +224,10 @@ Para customizar cores, edite as variáveis CSS em `app.scss`:
 }
 ```
 
-## 📄 Licença
+## 📄 
 
 MIT - Projeto educacional DIO
 
-## 👨‍💻 Autor
-
 Desenvolvido como exercício do Bootcamp Formação Angular DIO
 
----
-
-**Status:** ✅ Projeto Completo e Funcional
+**Status:** ✅ Projeto Demostrativo e Funcional.
